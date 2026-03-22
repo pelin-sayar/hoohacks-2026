@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { auth } from "../lib/firebase"; 
-import { 
+import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword,
   signInWithPopup,      
-  GoogleAuthProvider,
-  sendPasswordResetEmail // Fixed: Moved import to the top block
+  GoogleAuthProvider
 } from "firebase/auth";
 
 export default function Auth() {
@@ -13,28 +12,13 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
-  const [resetMessage, setResetMessage] = useState(""); // State for success messages
+  // Removed resetMessage state
 
-  // --- PASSWORD RESET LOGIC ---
-  const handlePasswordReset = async () => {
-    setError("");
-    setResetMessage("");
-    if (!email) {
-      setError("ENTER_EMAIL_FOR_RESET");
-      return;
-    }
-    try {
-      await sendPasswordResetEmail(auth, email);
-      setResetMessage("RESET_LINK_SENT_CHECK_INBOX");
-    } catch (err) {
-      setError("RESET_FAILED: " + (err.message || ""));
-    }
-  };
+  // Removed password reset logic
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setResetMessage("");
     try {
       if (isLogin) {
         await signInWithEmailAndPassword(auth, email, password);
@@ -75,15 +59,14 @@ export default function Auth() {
         
         {error && (
           <div className="mb-4 text-pink-500 text-[10px] font-bold text-center animate-pulse tracking-widest">
-            ! ERROR: {error}
+            {error === "FIREBASE: ERROR (AUTH/MISSING-PASSWORD)." ? "Please enter a password."
+              : error === "FIREBASE: ERROR (AUTH/MISSING-EMAIL)." ? "Please enter an email."
+              : error === "FIREBASE: ERROR (AUTH/INVALID-EMAIL)." ? "Please fill out the fields."
+              : `! ERROR: ${error}`}
           </div>
         )}
         
-        {resetMessage && (
-          <div className="mb-4 text-cyan-400 text-[10px] font-bold text-center tracking-widest">
-            {resetMessage}
-          </div>
-        )}
+
 
         <h1 className="text-cyan-500 text-xl mb-6 font-black tracking-widest uppercase italic">
           {isLogin ? ">> LOGIN" : ">> REGISTER"}
@@ -101,24 +84,16 @@ export default function Auth() {
             onChange={(e) => setPassword(e.target.value)} 
           />
           <button className="w-full bg-cyan-600 text-black font-black p-3 hover:bg-cyan-400 transition-colors uppercase tracking-widest text-sm shadow-[0_0_15px_rgba(8,145,178,0.3)]">
-            {isLogin ? "Initialize_Link" : "Create_Identity"}
+            {isLogin ? "LOGIN" : "REGISTER"}
           </button>
         </form>
 
-        {isLogin && (
-          <button
-            type="button"
-            className="w-full mt-4 text-zinc-500 hover:text-cyan-400 text-[9px] uppercase tracking-widest transition-colors"
-            onClick={handlePasswordReset}
-          >
-            [ Forgot_Access_Key? ]
-          </button>
-        )}
+
 
         <div className="mt-8">
           <div className="flex items-center gap-2 mb-6 text-zinc-800">
             <div className="h-[1px] bg-zinc-800 flex-1" />
-            <span className="text-[10px] font-bold uppercase">Or_Social_Uplink</span>
+            <span className="text-base font-bold uppercase">OR</span>
             <div className="h-[1px] bg-zinc-800 flex-1" />
           </div>
 
@@ -127,7 +102,7 @@ export default function Auth() {
             className="w-full border border-pink-500/50 text-pink-500 font-bold p-3 hover:bg-pink-500/10 transition-all flex items-center justify-center gap-3 text-xs tracking-[0.2em]"
           >
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-4 h-4 grayscale contrast-125" alt="" />
-            SYNC_WITH_GOOGLE
+            SIGN_IN_WITH_GOOGLE
           </button>
         </div>
 
