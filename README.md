@@ -1,4 +1,4 @@
-Check out the DevPost: https://devpost.com/software/picto-pal
+DevPost: https://devpost.com/software/picto-pal
 
 ## ✨ Inspiration
 Whether it's for documenting our most important and exciting moments or for sharing our lives with others through social media, we live in a vastly social age where documentation sits at the core of our lives. However, with this era of vast documentation comes the frustration and technical difficulty of capturing the "perfect shot". Taking pictures, staring at them, then taking them again... 10 times... while the birthday kid sits holding a smile for 20 minutes, all for the parent to capture the perfect memory. Most people wish their pictures looked more "professional" but feel intimidated by super technical terms that can be simplified to composition, lighting, and framing. Picto Pal aspires to give the average documenter that "pro-photographer" eye without overwhelming with highly technical terms, enhancing your life's best moments by turning casual snapshots into high-quality memories.
