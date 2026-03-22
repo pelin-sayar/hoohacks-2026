@@ -12,9 +12,7 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
-  // Removed resetMessage state
 
-  // Removed password reset logic
 
   const handleSubmit = async (e) => {
     e.preventDefault();
