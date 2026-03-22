@@ -1,4 +1,5 @@
 //use this when out of gemini queries
+/*
 const mockInsights = [
   "COMPOSITION: RULE OF THIRDS DETECTED. OPTIMAL.",
   "LIGHTING: HIGH CONTRAST ANALYZED. ADJUST ISO -200.",
@@ -18,18 +19,24 @@ export async function analyzeImage(base64Image) {
     advice: randomAdvice
   };
 }
+*/
 
 //use this for real API calls to Gemini when there are enough queries
 
-/*
+
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
 export const analyzeImage = async (base64Image) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  try {
+    // 1. Fixed Model Name to the stable Free Tier version
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-  const imageData = base64Image.split(",")[1];
+    // 2. Ensure we only send the raw data (removing the data:image/jpeg;base64, prefix)
+    const imageData = base64Image.includes(",") 
+      ? base64Image.split(",")[1] 
+      : base64Image;
 
   const prompt = `You are Picto-pal, a photography mentor who helps people take better pictures.  
 1. If the composition, lighting, and framing look good (you can be a bit lenient), say: "Good framing, lighting, and composition!"
@@ -37,10 +44,28 @@ export const analyzeImage = async (base64Image) => {
 Use technical terms like 'Rule of Thirds', 'Lead Room', or 'Rim Light'.`;
 
   const result = await model.generateContent([
-    prompt,
-    { inlineData: { data: imageData, mimeType: "image/jpeg" } },
-  ]);
+      {
+        inlineData: {
+          data: imageData,
+          mimeType: "image/jpeg",
+        },
+      },
+      prompt,
+    ]);
 
-  return result.response.text();
+    const response = await result.response;
+    const text = response.text();
+
+    // 3. Return an OBJECT so App.jsx doesn't crash
+    return {
+      advice: text || "SYSTEM_IDLE"
+    };
+
+  } catch (error) {
+    console.error("Gemini Error:", error);
+    // Fallback if the API is down or quota is hit
+    return {
+      advice: "SIGNAL_INTERFERENCE_RETRY"
+    };
+  }
 };
-*/

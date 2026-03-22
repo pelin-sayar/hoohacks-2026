@@ -15,7 +15,7 @@ const App = () => {
   
   // States
   const [loading, setLoading] = useState(false);
-  const [advice, setAdvice] = useState("AWAITING DATA...");
+  const [advice, setAdvice] = useState("SYSTEM_READY // AWAITING_INPUT");
   const [flash, setFlash] = useState(false);
   const [history, setHistory] = useState([]); 
   const [iso, setIso] = useState(400);
@@ -57,6 +57,7 @@ const App = () => {
   }, [user]);
 
   // 3. Passive AI Scan
+  /*
   useEffect(() => {
     if (!user || loading || sidebarOpen) return;
     const passiveScan = setInterval(async () => {
@@ -65,6 +66,7 @@ const App = () => {
     }, 4000);
     return () => clearInterval(passiveScan);
   }, [loading, sidebarOpen, user]);
+  */
 
   // 4. Actions
   const handleCapture = async () => {
