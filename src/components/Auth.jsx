@@ -49,7 +49,7 @@ export default function Auth() {
           <div className="mb-4 text-pink-500 text-sm font-bold text-center">{error}</div>
         )}
         <h1 className="text-cyan-500 text-xl mb-6 font-black tracking-widest uppercase">
-          {isLogin ? "System_Login" : "Register_User"}
+          {isLogin ? "Login" : "Register_User"}
         </h1>
         <input 
           type="email" placeholder="EMAIL_ADDRESS" 
@@ -57,12 +57,12 @@ export default function Auth() {
           onChange={(e) => setEmail(e.target.value)} 
         />
         <input 
-          type="password" placeholder="SECURITY_KEY" 
+          type="password" placeholder="PASSWORD" 
           className="w-full bg-black border border-zinc-700 p-3 mb-6 text-white focus:border-cyan-500 outline-none"
           onChange={(e) => setPassword(e.target.value)} 
         />
         <button className="w-full bg-cyan-600 text-black font-black p-3 hover:bg-cyan-400 transition-colors">
-          {isLogin ? "INITIALIZE_SESSION" : "CREATE_IDENTITY"}
+          {isLogin ? "LOGIN" : "REGISTER"}
         </button>
         <p 
           className="text-zinc-500 text-[10px] mt-4 cursor-pointer text-center"
