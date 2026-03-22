@@ -29,5 +29,5 @@ There were many challenges throughout the course of this project. I faced signif
 
 
 ## 👀 What's next for Picto Pal
-- Integrating real-time Gemini feedback on images by taking snapshots of the current frame and sending queries every 2-4 seconds to analyze image before capturing and saving.
+- Integrating real-time Gemini feedback on images before pressing the shutter button by taking snapshots of the current frame in the background and sending queries every 2-4 seconds to analyze image before capturing and saving.
 - Integrating ElevenLabs Voice Synthesis to turn Gemini's written feedback into natural sounding spoken text, so the you can continue to be immersed by the scene you are capturing without needing to pause and read feedback. 
