@@ -22,12 +22,12 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
-  // Visual filter logic
+  // visual filter logic
   const minIso = 100;
   const maxIso = 1600;
   const brightnessFilter = 0.5 + ((iso - minIso) / (maxIso - minIso)) * 1.5;
 
-  // 1. Auth Listener
+  //auth listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -36,7 +36,7 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
-  // 2. Firebase Syncing (Private Feed)
+  //firebase Syncing
   useEffect(() => {
     if (!user) return;
     const q = query(
@@ -56,7 +56,7 @@ const App = () => {
     return () => unsubscribe(); 
   }, [user]);
 
-  // 3. Passive AI Scan
+  //continous ai scan
   /*
   useEffect(() => {
     if (!user || loading || sidebarOpen) return;
@@ -68,7 +68,7 @@ const App = () => {
   }, [loading, sidebarOpen, user]);
   */
 
-  // 4. Actions
+
   const handleCapture = async () => {
     if (loading || !camera.current || !user) return;
     setFlash(true);
